@@ -1,8 +1,21 @@
-import React from 'react'
+
+import {redirect} from 'next/navigation'
+import {onAuthenticateUser} from '@/actions/user';
 
 
 const AuthCallbackPage = async ()=>{
   const auth = await onAuthenticateUser();
-  return <div> AuthCallbackPage</div>
-}
+  if(auth.status ===200 || auth.status ==201){
+    redirect('/dashboard')
+  }else if(
+    auth.status ===403 ||
+    auth.status === 400 ||
+    auth.status === 500
+    ){
+    redirect('/sign-in')
+  }
+
+  }
+
+
 export default AuthCallbackPage

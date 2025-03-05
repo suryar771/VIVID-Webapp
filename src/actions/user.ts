@@ -1,7 +1,8 @@
+'use server'
 import { currentUser} from '@clerk/nextjs/server'
 import { client} from '@/lib/prisma'
 
-export const onAuthenticateuser = async() =>{
+export const onAuthenticateUser = async() =>{
   try{
     const user = await currentUser()
     if(!user){
@@ -33,8 +34,13 @@ export const onAuthenticateuser = async() =>{
         profileImage: user.imageUrl,
 
 
-      }
+      },
     })
+    if(newUser){
+      return { status: 201, user: newUser}
+    }
+    return {status: 404}
+
 
   }
   catch (error){
