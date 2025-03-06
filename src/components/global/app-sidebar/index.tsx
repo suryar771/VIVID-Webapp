@@ -1,3 +1,4 @@
+"use client"
 import {
   Sidebar,
   SidebarContent,
@@ -8,9 +9,12 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
 import React from 'react'
-import {Project,User}  from '@prisma/client'
+import {Project}  from '@prisma/client'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import NavMain from "./nav-main"
+import type { User } from "@clerk/nextjs/server"
+import { data } from "@/lib/constants"
+import RecentOpen from "../recent-open"
 
 const AppSidebar =( {
   recentProjects,
@@ -44,7 +48,9 @@ const AppSidebar =( {
 
         </SidebarHeader>
       <SidebarContent className="px-3 mt-10 gap-y-6">
-        <NavMain/>
+        <NavMain items={data.navMain}/>
+        <RecentOpen/>
+
       </SidebarContent>
       <SidebarFooter />
     </Sidebar>
